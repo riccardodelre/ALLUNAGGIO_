@@ -1,0 +1,77 @@
+/* Importa il font Press Start 2P da Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  background-color: #000000;
+  margin: 0;
+  padding: 20px;
+  background-image: url('../img/Space-ship.jpg');
+  background-size: contain; /* Mostra tutta l'immagine senza tagliarla */
+  background-repeat: no-repeat;
+  background-position: center center; /* Centra l'immagine */
+  background-attachment: fixed;
+}
+
+h1 {
+  text-align: center;
+  color: #fdfdfd;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+}
+
+.contenitore {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.input, .output {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(68, 65, 65, 0.1);
+  width: 300px;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px; /* Riduce la dimensione del testo */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px; /* Riduce la dimensione del testo */
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px; /* Riduce la dimensione del testo */
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+#risultato {
+  font-weight: bold;
+  color: #333;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px; /* Riduce la dimensione del testo */
+  line-height: 2;   /* Più spazio tra le righe */
+}
