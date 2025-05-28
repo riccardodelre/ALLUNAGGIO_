@@ -73,5 +73,5 @@ button:hover {
   color: #333;
   font-family: 'Press Start 2P', Arial, sans-serif;
   font-size: 12px; /* Riduce la dimensione del testo */
-  line-height: 2;   /* Più spazio tra le righe */
+  line-height: 2.5; /* Più spazio tra le righe */
 }
