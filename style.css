@@ -1,0 +1,21 @@
+body {
+  font-family: Arial;
+  background: #f0f0f0;
+  text-align: center;
+}
+
+.contenitore {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.input, .output {
+  margin: 0 20px;
+}
+
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 5px;
+}

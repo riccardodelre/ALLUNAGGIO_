@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulazione Allunaggio</title>
+  <link rel="stylesheet" href="css/stile.css" />
+</head>
+<body>
+
+  <h1>Simulazione Allunaggio</h1>
+
+  <div class="contenitore">
+    <div class="input">
+      <label>Massa navicella (kg):</label>
+      <input type="number" id="massa" min="10" max="100000" />
+
+      <label>Velocità iniziale (m/s):</label>
+      <input type="number" id="velocita" min="1" max="1000" />
+
+      <button onclick="calcolaTempo()">Calcola</button>
+    </div>
+
+    <div class="output">
+      <p id="risultato"></p>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
