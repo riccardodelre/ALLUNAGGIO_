@@ -1,6 +1,7 @@
 /* Importa il font Press Start 2P da Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+/* --- Stili base unificati --- */
 body {
   font-family: 'Press Start 2P', Arial, sans-serif;
   background-color: #000000;
@@ -9,30 +10,65 @@ body {
   background-image: url('../img/Space-ship.jpg');
   background-size: contain; /* Mostra tutta l'immagine senza tagliarla */
   background-repeat: no-repeat;
-  background-position: center center; /* Centra l'immagine */
+  background-position: 70% center; /* Sposta l'immagine verso destra */
   background-attachment: fixed;
+  color: white;
+  overflow-x: hidden;
 }
 
+/* Titolo */
 h1 {
   text-align: center;
   color: #fdfdfd;
   font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 22px;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
 }
 
+/* Contenitore principale */
+/* Box input e output - allineamento ai margini della foto principale */
 .contenitore {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin-top: 20px;
+  gap: 40px;
+  position: relative;
+  /* Larghezza massima della foto principale (contain) = altezza viewport - padding */
+  /* Adatta se necessario in base alle proporzioni della tua immagine */
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.input, .output {
+.input {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(68, 65, 65, 0.1);
   width: 300px;
   font-family: 'Press Start 2P', Arial, sans-serif;
-  font-size: 12px; /* Riduce la dimensione del testo */
+  font-size: 12px;
+  opacity: 0.95;
+  color: #222;
+  /* Allinea il margine sinistro con il margine sinistro della foto principale */
+  margin-left: calc(70vw - 50vw - 150px); /* 70vw = posizione foto, -50vw centra, -150px metà larghezza box */
+}
+
+.output {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(68, 65, 65, 0.1);
+  width: 300px;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px;
+  opacity: 0.95;
+  color: #222;
+  /* Allinea il margine destro con il margine destro della foto principale */
+  margin-left: auto;
+  margin-right: calc(100vw - 70vw - 150px); /* 100vw - 70vw = spazio a destra della foto, -150px metà larghezza box */
 }
 
 label {
@@ -40,7 +76,7 @@ label {
   margin-bottom: 5px;
   color: #555;
   font-family: 'Press Start 2P', Arial, sans-serif;
-  font-size: 12px; /* Riduce la dimensione del testo */
+  font-size: 12px;
 }
 
 input[type="number"] {
@@ -50,28 +86,266 @@ input[type="number"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: 'Press Start 2P', Arial, sans-serif;
-  font-size: 12px; /* Riduce la dimensione del testo */
+  font-size: 12px;
+  background: #f7f7f7;
+  color: #222;
 }
 
 button {
-  background-color: #28a745;
-  color: white;
+  background-color: #1f025f;
+  color: #fff;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
   font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px;
+  margin-top: 10px;
+  transition: background 0.2s;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #3a1fa6;
 }
 
 #risultato {
   font-weight: bold;
   color: #333;
   font-family: 'Press Start 2P', Arial, sans-serif;
-  font-size: 12px; /* Riduce la dimensione del testo */
-  line-height: 2.5; /* Più spazio tra le righe */
+  font-size: 12px;
+  line-height: 2.2;
+  margin-top: 10px;
+  word-break: break-word;
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contenitore {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .input, .output {
+    width: 90%;
+    min-width: 200px;
+    max-width: 400px;
+  }
+}
+
+/* --- Stili Gioco Navicella --- */
+#game {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: radial-gradient(#000 60%, #111);
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+#lander {
+  width: 45px;
+  height: 90px;
+  position: absolute;
+  bottom: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 50% 50% 20% 20%;
+  border: 3.75px solid #FF4D4D;
+  box-shadow: 0 0 11.25px rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#window {
+  width: 13.5px;
+  height: 13.5px;
+  background: #0cf;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px #0cf;
+}
+
+#flame, .side-flame {
+  background: radial-gradient(circle at 50% 0%, yellow, orange, red);
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: flicker 0.2s infinite;
+  display: none;
+}
+
+#flame {
+  width: 13.5px;
+  height: 20.25px;
+  bottom: -20.25px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 11.25px orange;
+}
+
+.side-flame {
+  width: 6.75px;
+  height: 13.5px;
+  bottom: -10px;
+  box-shadow: 0 0 7.5px red;
+}
+
+#left-flame {
+  left: -6px;
+}
+#right-flame {
+  left: auto;
+  right: -14px;
+}
+
+@keyframes flicker {
+  0% { transform: scaleY(1) scaleX(1) translateX(-50%); opacity: 1; }
+  50% { transform: scaleY(1.3) scaleX(0.8) translateX(-50%); opacity: 0.8; }
+  100% { transform: scaleY(1) scaleX(1.1) translateX(-50%); opacity: 1; }
+}
+
+.fin {
+  width: 14px;
+  height: 19.7px;
+  background: red;
+  position: absolute;
+  bottom: 8.5px;
+  box-shadow: 0 0 7.5px rgba(255, 0, 0, 0.7);
+  border-radius: 3.4px;
+}
+
+#fin-left {
+  left: -12.5px;
+  transform: rotate(45deg);
+}
+#fin-right {
+  right: -12.5px;
+  transform: rotate(-45deg);
+}
+
+#surface {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background: url('../img/suolo.png') repeat-x left bottom;
+  background-size: auto 100%;
+  z-index: 1;
+}
+
+#target {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  width: 100px;
+  height: 20px;
+  background: #62fc67;
+  border: 2px solid #aaa;
+  text-align: center;
+  color: rgb(10, 9, 9);
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+#info {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  color: #fff;
+}
+
+#info p {
+  margin: 3px 0;
+}
+
+#asteroid-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.asteroid {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: url('../img/meteora.png') center center / contain no-repeat;
+  border-radius: 50%;
+  box-shadow: none;
+  border: none;
+}
+
+#message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.5em;
+  color: #fff;
+  text-shadow: 2px 2px 8px #000, 0 0 8px #00f;
+  text-align: center;
+  width: 90vw;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+/* --- Stili Note Tecniche aggiornati --- */
+.note-tecniche {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 220px;
+  min-width: 180px;
+  margin-right: 20px;
+  position: absolute;
+  left: 0;
+  top: 80px; /* sotto il titolo */
+  height: calc(100vh - 100px);
+  z-index: 10;
+}
+
+.note-box {
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  border-radius: 8px;
+  padding: 18px 14px;
+  font-size: 11px;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  box-shadow: 0 2px 8px #0006;
+  line-height: 1.7;
+  margin-top: 10px;
+  width: 200px;
+  max-width: 90vw;
 }

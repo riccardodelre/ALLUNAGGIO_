@@ -6,25 +6,99 @@
   <link rel="stylesheet" href="css/stile.css" />
 </head>
 <body>
-
   <h1>Simulazione Allunaggio</h1>
-
-  <div class="contenitore">
-    <div class="input">
-      <label>Massa navicella (kg):</label>
-      <input type="number" id="massa" min="10" max="100000" />
-
-      <label>Velocità iniziale (m/s):</label>
-      <input type="number" id="velocita" min="1" max="1000" />
-
-      <button onclick="calcolaTempo()">Calcola</button>
+  <div class="contenitore" id="menu-container">
+    <!-- Colonna note tecniche a sinistra -->
+    <div class="note-tecniche">
+      <div class="note-box">
+        <b>Note tecniche:</b><br>
+        La simulazione utilizza la gravità lunare costante (1.66 m/s²).<br>
+        Inserisci valori realistici per massa e velocità.<br>
+        Progetto didattico - Allunaggio 2025
+      </div>
     </div>
-
+    <!-- Colonna input/calcolo -->
+    <div class="input">
+      <label for="massa">Massa navicella (kg):</label>
+      <input type="number" id="massa" min="10" max="100000" />
+      <label for="velocita">Velocità iniziale (m/s):</label>
+      <input type="number" id="velocita" min="1" max="1000" />
+      <button onclick="calcolaTempo()">Calcola</button>
+      <button id="confermaBtn" style="display:none; margin-top:10px;" onclick="mostraGioco()">Conferma</button>
+    </div>
     <div class="output">
       <p id="risultato"></p>
     </div>
   </div>
 
+  <!-- Gioco nascosto inizialmente -->
+  <div id="game-section" style="display:none;">
+    <div id="game">
+      <div id="stars"></div>
+      <div id="lander">
+        <div id="window"></div>
+        <div id="flame"></div>
+        <div id="left-flame" class="side-flame"></div>
+        <div id="right-flame" class="side-flame"></div>
+        <div id="fin-left" class="fin"></div>
+        <div id="fin-right" class="fin"></div>
+      </div>
+      <div id="surface"></div>
+      <div id="target">H</div>
+      <div id="asteroid-container"></div>
+      <div id="info">
+        <p>Velocità: <span id="speed">0</span></p>
+        <p>Motore: <span id="engine">OFF</span></p>
+        <p>Carburante: <span id="fuel">100</span></p>
+        <p>Punteggio: <span id="score">0</span></p>
+        <p id="message"></p>
+      </div>
+    </div>
+    <audio id="engine-sound" src="https://actions.google.com/sounds/v1/ambiences/rocket_whoosh.ogg" preload="auto"></audio>
+    <audio id="collision-sound" src="https://actions.google.com/sounds/v1/vehicles/vehicle_collision_2.ogg" preload="auto"></audio>
+    <audio id="landing-success-sound" src="https://actions.google.com/sounds/v1/alarms/success_tone.ogg" preload="auto"></audio>
+    <audio id="fuel-empty-sound" src="https://actions.google.com/sounds/v1/alarms/buzzer.ogg" preload="auto"></audio>
+  </div>
+
   <script src="js/script.js"></script>
+  <script src="js/game.js" id="gameScript" style="display:none;"></script>
+  <script>
+    // Mostra il pulsante Conferma solo dopo il calcolo
+    function calcolaTempo() {
+      const massaNav = parseFloat(document.getElementById("massa").value);
+      const velocitaIniziale = parseFloat(document.getElementById("velocita").value);
+
+      if (
+        isNaN(massaNav) || isNaN(velocitaIniziale) ||
+        massaNav < 10 || massaNav > 100000 ||
+        velocitaIniziale < 1 || velocitaIniziale > 1000
+      ) {
+        document.getElementById("risultato").innerHTML = "Inserisci valori validi!";
+        document.getElementById("confermaBtn").style.display = "none";
+        return;
+      }
+
+      const gLuna = 1.66;
+      const accelerazione = gLuna;
+      const tempo = velocitaIniziale / accelerazione;
+
+      document.getElementById("risultato").innerHTML =
+        `Accelerazione: <b>${accelerazione.toFixed(2)} m/s²</b><br>` +
+        `Tempo: <b>${tempo.toFixed(2)} s</b>`;
+
+      document.getElementById("confermaBtn").style.display = "inline-block";
+    }
+
+    // Mostra il gioco e nasconde il menu, titolo e note tecniche
+    function mostraGioco() {
+      document.getElementById("menu-container").style.display = "none";
+      document.getElementById("game-section").style.display = "block";
+      document.querySelector("h1").style.display = "none";
+      // Nasconde la colonna delle note tecniche se presente
+      const note = document.querySelector(".note-tecniche");
+      if (note) note.style.display = "none";
+      if (typeof startGame === "function") startGame();
+    }
+  </script>
 </body>
 </html>
