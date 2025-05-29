@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/stile.css" />
 </head>
 <body>
-  <h1>Simulazione Allunaggio</h1>
+  <h1>Allunaggio</h1>
   <div class="contenitore" id="menu-container">
     <!-- Colonna note tecniche a sinistra -->
     <div class="note-tecniche">
@@ -14,14 +14,17 @@
         <b>Note tecniche:</b><br>
         La simulazione utilizza la gravità lunare costante (1.66 m/s²).<br>
         Inserisci valori realistici per massa e velocità.<br>
-        Progetto didattico - Allunaggio 2025
+        <br>
+        <b>Valori accettabili:</b><br>
+        <span class="label-blu">Massa navicella</span>: da 10 a 100.000 kg<br>
+        <span class="label-blu">Velocità iniziale</span>: da 1 a 1.000 m/s
       </div>
     </div>
     <!-- Colonna input/calcolo -->
     <div class="input">
       <label for="massa">Massa navicella (kg):</label>
       <input type="number" id="massa" min="10" max="100000" />
-      <label for="velocita">Velocità iniziale (m/s):</label>
+      <label for="velocita" style="white-space:nowrap;">Velocità iniziale (m/s):</label>
       <input type="number" id="velocita" min="1" max="1000" />
       <button onclick="calcolaTempo()">Calcola</button>
       <button id="confermaBtn" style="display:none; margin-top:10px;" onclick="mostraGioco()">Conferma</button>

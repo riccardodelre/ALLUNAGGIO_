@@ -26,7 +26,7 @@ function calcolaTempo() {
 
   document.getElementById("risultato").innerHTML =
     `Accelerazione: <b>${accelerazione.toFixed(2)} m/s²</b><br>` +
-    `Tempo: <b>${tempo.toFixed(2)} s</b>`;
+    `<span class="nowrap">Tempo: <b>${tempo.toFixed(2)} s</b></span>`;
 
   document.getElementById("confermaBtn").style.display = "inline-block";
 }
@@ -34,7 +34,10 @@ function calcolaTempo() {
 function mostraGioco() {
   document.getElementById("menu-container").style.display = "none";
   document.getElementById("game-section").style.display = "block";
-  // Avvia il gioco
+  document.querySelector("h1").style.display = "none";
+  const note = document.querySelector(".note-tecniche");
+  if (note) note.style.display = "none";
+  document.body.classList.add("gioco-attivo"); // Blocca lo scroll e fissa la pagina
   if (typeof startGame === "function") startGame();
 }
 
@@ -68,8 +71,9 @@ for (let i = 0; i < 100; i++) {
 let position = 70;
 let speed = 0;
 let horizontalSpeed = 0;
-let gravity = 0.001;
-let thrust = -0.002;
+let gravity = 0.0005; // Diminuita per rallentare la caduta (prima era 0.001)
+let thrust = -0.001;  // Diminuita per rallentare la spinta (prima era -0.002)
+let lateralThrust = 0.001; // Diminuita per rallentare il movimento laterale (prima era 0.002)
 let engineOn = false;
 let movingLeft = false;
 let movingRight = false;
@@ -113,8 +117,6 @@ function moveAsteroids() {
 }
 
 createAsteroids();
-
-let lateralThrust = 0.002;
 
 window.addEventListener("keydown", (e) => {
   // Se il gioco non è ancora partito e premi INVIO
