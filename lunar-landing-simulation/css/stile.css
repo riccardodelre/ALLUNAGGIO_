@@ -408,3 +408,8 @@ footer {
   color: #00bfff; /* Blu per "Massa Navicella" e "Velocità Iniziale" */
   font-weight: bold;
 }
+
+.note-box .label-yellow {
+  color: #ffe600;
+  font-weight: bold;
+}

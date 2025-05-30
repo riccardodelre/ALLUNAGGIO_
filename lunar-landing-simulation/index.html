@@ -11,6 +11,7 @@
     <!-- Colonna note tecniche a sinistra -->
     <div class="note-tecniche">
       <div class="note-box">
+        <span class="label-yellow">Distanza:</span> <span id="distanza-note" style="color:#fff;">---</span> m<br><br>
         <b>Note tecniche:</b><br>
         La simulazione utilizza la gravità lunare costante (1.66 m/s²).<br>
         Inserisci valori realistici per massa e velocità.<br>
@@ -34,7 +35,6 @@
     </div>
   </div>
 
-  <!-- Gioco nascosto inizialmente -->
   <div id="game-section" style="display:none;">
     <div id="game">
       <div id="stars"></div>
@@ -66,58 +66,70 @@
   <script src="js/script.js"></script>
   <script src="js/game.js" id="gameScript" style="display:none;"></script>
   <script>
-    // Mostra il pulsante Conferma solo dopo il calcolo
-    function calcolaTempo() {
-      const massaNav = parseFloat(document.getElementById("massa").value);
-      const velocitaIniziale = parseFloat(document.getElementById("velocita").value);
+  // Costanti fisiche
+  const r = 1.7374e6; // m (raggio medio Luna)
+  // Calcola subito la distanza random tra r e 3r
+  let distanzaLuna = Math.random() * (3 * r - r) + r;
 
-      if (
-        isNaN(massaNav) || isNaN(velocitaIniziale) ||
-        massaNav < 10 || massaNav > 100000 ||
-        velocitaIniziale < 1 || velocitaIniziale > 1000
-      ) {
-        document.getElementById("risultato").innerHTML = "Inserisci valori validi!";
-        document.getElementById("confermaBtn").style.display = "none";
-        return;
-      }
+  function aggiornaDistanzaNote() {
+    const distanzaSpan = document.getElementById("distanza-note");
+    if (distanzaSpan) {
+      distanzaSpan.textContent = distanzaLuna.toLocaleString('it-IT', {maximumFractionDigits: 0});
+    }
+  }
 
-      // Costanti fisiche
-      const G = 6.67430e-11; // m^3 kg^-1 s^-2
-      const M_moon = 7.34767309e22; // kg
-      const r = 1.7374e6; // m (raggio medio Luna)
+  aggiornaDistanzaNote();
 
-      // Accelerazione gravitazionale sulla superficie lunare
-      const accelerazione = G * M_moon / (r * r);
+  function calcolaTempo() {
+    const massaNav = parseFloat(document.getElementById("massa").value);
+    const velocitaIniziale = parseFloat(document.getElementById("velocita").value);
 
-      // Distanza di caduta (puoi modificarla se vuoi una distanza diversa)
-      const distanza = r; // raggio medio della Luna
-
-      // Formula corretta per il tempo di caduta
-      const delta = Math.pow(velocitaIniziale, 2) + 2 * accelerazione * distanza;
-      let tempo;
-      if (delta < 0) {
-        tempo = NaN;
-      } else {
-        tempo = (-velocitaIniziale + Math.sqrt(delta)) / accelerazione;
-      }
-
-      document.getElementById("risultato").innerHTML =
-        `Accelerazione: <b>${accelerazione.toFixed(2)} m/s²</b><br>` +
-        `Tempo: <b>${isNaN(tempo) ? "Non calcolabile" : tempo.toFixed(2) + " s"}</b>`;
-
-      document.getElementById("confermaBtn").style.display = "inline-block";
+    if (
+      isNaN(massaNav) || isNaN(velocitaIniziale) ||
+      massaNav < 10 || massaNav > 100000 ||
+      velocitaIniziale < 1 || velocitaIniziale > 1000
+    ) {
+      document.getElementById("risultato").innerHTML = "Inserisci valori validi!";
+      document.getElementById("confermaBtn").style.display = "none";
+      return;
     }
 
-    // Mostra il gioco e nasconde il menu, titolo e note tecniche
-    function mostraGioco() {
-      document.getElementById("menu-container").style.display = "none";
-      document.getElementById("game-section").style.display = "block";
-      document.querySelector("h1").style.display = "none";
-      // Nasconde la colonna delle note tecniche se presente
-      const note = document.querySelector(".note-tecniche");
-      if (note) note.style.display = "none";
-      if (typeof startGame === "function") startGame();
+    // Costanti fisiche
+    const G = 6.67430e-11; // m^3 kg^-1 s^-2
+    const M_moon = 7.34767309e22; // kg
+
+    // Usa la distanza già calcolata
+    const distanza = distanzaLuna;
+
+    // Accelerazione gravitazionale alla distanza scelta
+    const accelerazione = G * M_moon / (distanza * distanza);
+
+    // Formula corretta per il tempo di caduta
+    const delta = Math.pow(velocitaIniziale, 2) + 2 * accelerazione * distanza;
+    let tempo;
+    if (delta < 0) {
+      tempo = NaN;
+    } else {
+      tempo = (-velocitaIniziale + Math.sqrt(delta)) / accelerazione;
     }
+
+    document.getElementById("risultato").innerHTML =
+      `<span style="white-space:nowrap;">Accelerazione: <b>${accelerazione.toFixed(2)} m/s<sup>2</sup></b></span><br>` +
+      `Tempo: <b>${isNaN(tempo) ? "Non calcolabile" : tempo.toFixed(2) + " s"}</b>`;
+
+    document.getElementById("confermaBtn").style.display = "inline-block";
+  }
+
+  // Mostra il gioco e nasconde il menu, titolo e note tecniche
+  function mostraGioco() {
+    document.getElementById("menu-container").style.display = "none";
+    document.getElementById("game-section").style.display = "block";
+    document.querySelector("h1").style.display = "none";
+    // Nasconde la colonna delle note tecniche se presente
+    const note = document.querySelector(".note-tecniche");
+    if (note) note.style.display = "none";
+    if (typeof startGame === "function") startGame();
+  }
   </script>
 </body>
 </html>

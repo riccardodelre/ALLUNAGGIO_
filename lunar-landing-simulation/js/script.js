@@ -22,11 +22,43 @@ function calcolaTempo() {
   }
 
   const accelerazione = gLuna;
-  const tempo = velocitaIniziale / accelerazione;
+  const r = 1.7374e6; // m (raggio medio Luna)
+
+  // Scegli una distanza casuale tra raggio della Luna e 2.5 volte il raggio
+  const distanza = Math.random() * (2.5 * r - r) + r;
+  window.distanzaLuna = distanza; // Salva la distanza globalmente
+
+  // Formula corretta per il tempo di caduta
+  const delta = Math.pow(velocitaIniziale, 2) + 2 * accelerazione * distanza;
+  let tempo;
+  if (delta < 0) {
+    tempo = NaN;
+  } else {
+    tempo = (-velocitaIniziale + Math.sqrt(delta)) / accelerazione;
+  }
 
   document.getElementById("risultato").innerHTML =
     `Accelerazione: <b>${accelerazione.toFixed(2)} m/s²</b><br>` +
     `<span class="nowrap">Tempo: <b>${tempo.toFixed(2)} s</b></span>`;
+
+  // Aggiorna la colonna delle note tecniche con la distanza
+  const noteBox = document.querySelector('.note-box');
+  if (noteBox) {
+    noteBox.innerHTML =
+      `<b>Distanza:</b> ${distanza.toLocaleString('it-IT', {maximumFractionDigits: 0})} m<br><br>` +
+      `<b>Note tecniche:</b><br>
+      La simulazione utilizza la gravità lunare costante (1.66 m/s²).<br>
+      Inserisci valori realistici per massa e velocità.<br>
+      <br>
+      <b>Valori accettabili:</b><br>
+      <span class="label-blu">Massa navicella</span>: da 10 a 100.000 kg<br>
+      <span class="label-blu">Velocità iniziale</span>: da 1 a 1.000 m/s`;
+  }
+
+  const distanzaSpan = document.getElementById("distanza-note");
+  if (distanzaSpan) {
+    distanzaSpan.textContent = distanza.toLocaleString('it-IT', {maximumFractionDigits: 0});
+  }
 
   document.getElementById("confermaBtn").style.display = "inline-block";
 }
@@ -226,10 +258,11 @@ function update() {
     gameOver = true;
     waitingToRestart = true;
     engineSound.pause();
+    // Calcolo distanza dal centro del target
     const landingPosition = lander.offsetLeft + lander.offsetWidth / 2;
     const targetCenter = target.offsetLeft + target.offsetWidth / 2;
     const distance = Math.abs(landingPosition - targetCenter);
-    if (distance < 30 && speed < 0.03) {
+    if (distance < 55 && speed < 0.03) { // <-- MODIFICATO QUI (prima era < 30)
       landingSuccessSound.play();
       message.textContent = "Atterraggio perfetto!";
       message.style.color = "yellow";
