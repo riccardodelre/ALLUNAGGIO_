@@ -308,3 +308,22 @@ if (!gameStarted) {
 }
 
 resetLander();
+
+function checkLanding() {
+  const landerRect = document.getElementById("lander").getBoundingClientRect();
+  const targetRect = document.getElementById("target").getBoundingClientRect();
+
+  // Collisione rettangoli: basta che si tocchino
+  const isTouching =
+    landerRect.right > targetRect.left &&
+    landerRect.left < targetRect.right &&
+    landerRect.bottom > targetRect.top &&
+    landerRect.top < targetRect.bottom;
+
+  if (isTouching) {
+    // Atterraggio riuscito!
+    landingSuccess();
+    return true;
+  }
+  return false;
+}

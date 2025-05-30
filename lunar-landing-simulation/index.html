@@ -81,13 +81,29 @@
         return;
       }
 
-      const gLuna = 1.66;
-      const accelerazione = gLuna;
-      const tempo = velocitaIniziale / accelerazione;
+      // Costanti fisiche
+      const G = 6.67430e-11; // m^3 kg^-1 s^-2
+      const M_moon = 7.34767309e22; // kg
+      const r = 1.7374e6; // m (raggio medio Luna)
+
+      // Accelerazione gravitazionale sulla superficie lunare
+      const accelerazione = G * M_moon / (r * r);
+
+      // Distanza di caduta (puoi modificarla se vuoi una distanza diversa)
+      const distanza = r; // raggio medio della Luna
+
+      // Formula corretta per il tempo di caduta
+      const delta = Math.pow(velocitaIniziale, 2) + 2 * accelerazione * distanza;
+      let tempo;
+      if (delta < 0) {
+        tempo = NaN;
+      } else {
+        tempo = (-velocitaIniziale + Math.sqrt(delta)) / accelerazione;
+      }
 
       document.getElementById("risultato").innerHTML =
         `Accelerazione: <b>${accelerazione.toFixed(2)} m/s²</b><br>` +
-        `Tempo: <b>${tempo.toFixed(2)} s</b>`;
+        `Tempo: <b>${isNaN(tempo) ? "Non calcolabile" : tempo.toFixed(2) + " s"}</b>`;
 
       document.getElementById("confermaBtn").style.display = "inline-block";
     }

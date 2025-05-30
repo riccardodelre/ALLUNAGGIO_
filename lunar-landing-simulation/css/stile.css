@@ -146,6 +146,10 @@ button:hover {
   white-space: nowrap;
 }
 
+#speed {
+  display: none;
+}
+
 /* Footer */
 footer {
   margin-top: 40px;
@@ -326,6 +330,10 @@ footer {
 
 #info p {
   margin: 3px 0;
+}
+
+#info p:first-child {
+  display: none;
 }
 
 #asteroid-container {
