@@ -1,11 +1,9 @@
-// --- Sezione Calcolo e Gestione Menu ---
 
-// Costanti fisiche
-const gTerra = 9.81; // m/s^2
-const gLuna = 1.66;  // m/s^2
-const massaTerra = 5.976e24; // kg
-const massaLuna = 7.348e22;  // kg
-const distanzaTerraLuna = 3.84e8; // m
+const gTerra = 9.81;
+const gLuna = 1.66;
+const massaTerra = 5.976e24;
+const massaLuna = 7.348e22;
+const distanzaTerraLuna = 3.84e8;
 
 function calcolaTempo() {
   const massaNav = parseFloat(document.getElementById("massa").value);
@@ -22,13 +20,10 @@ function calcolaTempo() {
   }
 
   const accelerazione = gLuna;
-  const r = 1.7374e6; // m (raggio medio Luna)
-
-  // Scegli una distanza casuale tra raggio della Luna e 2.5 volte il raggio
+  const r = 1.7374e6;
   const distanza = Math.random() * (2.5 * r - r) + r;
-  window.distanzaLuna = distanza; // Salva la distanza globalmente
+  window.distanzaLuna = distanza;
 
-  // Formula corretta per il tempo di caduta
   const delta = Math.pow(velocitaIniziale, 2) + 2 * accelerazione * distanza;
   let tempo;
   if (delta < 0) {
@@ -41,7 +36,6 @@ function calcolaTempo() {
     `Accelerazione: <b>${accelerazione.toFixed(2)} m/s²</b><br>` +
     `<span class="nowrap">Tempo: <b>${tempo.toFixed(2)} s</b></span>`;
 
-  // Aggiorna la colonna delle note tecniche con la distanza
   const noteBox = document.querySelector('.note-box');
   if (noteBox) {
     noteBox.innerHTML =
@@ -69,11 +63,9 @@ function mostraGioco() {
   document.querySelector("h1").style.display = "none";
   const note = document.querySelector(".note-tecniche");
   if (note) note.style.display = "none";
-  document.body.classList.add("gioco-attivo"); // Blocca lo scroll e fissa la pagina
+  document.body.classList.add("gioco-attivo");
   if (typeof startGame === "function") startGame();
 }
-
-// --- Sezione Gioco Navicella (già funzionante, non modificata nel comportamento) ---
 
 const lander = document.getElementById("lander");
 const flame = document.getElementById("flame");
@@ -103,9 +95,9 @@ for (let i = 0; i < 100; i++) {
 let position = 70;
 let speed = 0;
 let horizontalSpeed = 0;
-let gravity = 0.0005; // Diminuita per rallentare la caduta (prima era 0.001)
-let thrust = -0.001;  // Diminuita per rallentare la spinta (prima era -0.002)
-let lateralThrust = 0.001; // Diminuita per rallentare il movimento laterale (prima era 0.002)
+let gravity = 0.0005;
+let thrust = -0.001;
+let lateralThrust = 0.001;
 let engineOn = false;
 let movingLeft = false;
 let movingRight = false;
@@ -151,7 +143,6 @@ function moveAsteroids() {
 createAsteroids();
 
 window.addEventListener("keydown", (e) => {
-  // Se il gioco non è ancora partito e premi INVIO
   if (!gameStarted && e.code === "Enter") {
     gameStarted = true;
     resetLander();
@@ -258,11 +249,10 @@ function update() {
     gameOver = true;
     waitingToRestart = true;
     engineSound.pause();
-    // Calcolo distanza dal centro del target
     const landingPosition = lander.offsetLeft + lander.offsetWidth / 2;
     const targetCenter = target.offsetLeft + target.offsetWidth / 2;
     const distance = Math.abs(landingPosition - targetCenter);
-    if (distance < 55 && speed < 0.03) { // <-- MODIFICATO QUI (prima era < 30)
+    if (distance < 55 && speed < 0.03) {
       landingSuccessSound.play();
       message.textContent = "Atterraggio perfetto!";
       message.style.color = "yellow";
@@ -346,7 +336,6 @@ function checkLanding() {
   const landerRect = document.getElementById("lander").getBoundingClientRect();
   const targetRect = document.getElementById("target").getBoundingClientRect();
 
-  // Collisione rettangoli: basta che si tocchino
   const isTouching =
     landerRect.right > targetRect.left &&
     landerRect.left < targetRect.right &&
@@ -354,7 +343,6 @@ function checkLanding() {
     landerRect.top < targetRect.bottom;
 
   if (isTouching) {
-    // Atterraggio riuscito!
     landingSuccess();
     return true;
   }

@@ -1,22 +1,19 @@
-/* Importa il font Press Start 2P da Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-/* --- Stili base unificati --- */
 body {
   font-family: 'Press Start 2P', Arial, sans-serif;
   background-color: #000000;
   margin: 0;
   padding: 20px;
   background-image: url('../img/Space-ship.jpg');
-  background-size: contain; /* Mostra tutta l'immagine senza tagliarla */
+  background-size: contain; 
   background-repeat: no-repeat;
-  background-position: 70% center; /* Sposta l'immagine verso destra */
+  background-position: 70% center; 
   background-attachment: fixed;
   color: white;
   overflow-x: hidden;
 }
 
-/* Blocca lo scroll della pagina quando il gioco è attivo */
 body.gioco-attivo {
   overflow: hidden !important;
   height: 100vh;
@@ -29,7 +26,6 @@ body.gioco-attivo {
   margin: 0 !important;
 }
 
-/* Titolo */
 h1 {
   position: absolute;
   top: 40px;
@@ -45,16 +41,12 @@ h1 {
   text-align: center;
 }
 
-/* Contenitore principale */
-/* Box input e output - allineamento ai margini della foto principale */
 .contenitore {
   display: flex;
   justify-content: flex-start;
   margin-top: 20px;
   gap: 40px;
   position: relative;
-  /* Larghezza massima della foto principale (contain) = altezza viewport - padding */
-  /* Adatta se necessario in base alle proporzioni della tua immagine */
   width: 100%;
   max-width: 1200px;
   margin-left: auto;
@@ -71,8 +63,7 @@ h1 {
   font-size: 8px;
   opacity: 0.95;
   color: #222;
-  /* Allinea il margine sinistro con il margine sinistro della foto principale */
-  margin-left: calc(65vw - 50vw - 140px); /* 70vw = posizione foto, -50vw centra, -150px metà larghezza box */
+  margin-left: calc(65vw - 50vw - 140px); 
 }
 
 .output {
@@ -85,9 +76,8 @@ h1 {
   font-size: 8px;
   opacity: 0.95;
   color: #222;
-  /* Allinea il margine destro con il margine destro della foto principale */
   margin-left: auto;
-  margin-right: calc(76vw - 70vw - 150px); /* 100vw - 70vw = spazio a destra della foto, -150px metà larghezza box */
+  margin-right: calc(76vw - 70vw - 150px); 
 }
 
 label {
@@ -150,7 +140,6 @@ button:hover {
   display: none;
 }
 
-/* Footer */
 footer {
   margin-top: 40px;
   text-align: center;
@@ -160,7 +149,6 @@ footer {
   opacity: 0.9;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .contenitore {
     flex-direction: column;
@@ -174,14 +162,13 @@ footer {
   }
 }
 
-/* --- Stili Gioco Navicella --- */
 #game-section {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(#000 60%, #111); /* sfondo stelle */
+  background: radial-gradient(#000 60%, #111); 
   z-index: 1000;
   display: flex;
   align-items: stretch;
@@ -193,7 +180,7 @@ footer {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: none; /* lo sfondo è già su #game-section */
+  background: none; 
 }
 
 .star {
@@ -369,15 +356,13 @@ footer {
   z-index: 2000;
 }
 
-/* --- Stili Note Tecniche aggiornati --- */
-/* Colonna note tecniche fissata al margine sinistro dello schermo */
 .note-tecniche {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   position: fixed;
   left: 0;
-  top: 80px; /* sotto il titolo */
+  top: 80px; 
   height: calc(100vh - 100px);
   width: 250px;
   min-width: 180px;
@@ -401,11 +386,11 @@ footer {
 }
 
 .note-box b {
-  color: #ffe600; /* Giallo per "Note Tecniche" e "Valori accettabili" */
+  color: #ffe600; 
 }
 
 .note-box .label-blu {
-  color: #00bfff; /* Blu per "Massa Navicella" e "Velocità Iniziale" */
+  color: #00bfff; 
   font-weight: bold;
 }
 
